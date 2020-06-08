@@ -1,105 +1,182 @@
 
-# Module 5 Final Project
+# Module 5 Final Project - Predicting 30-day Hospital Readmission
+
+Student name: **Cynthia Pedrasa**  
+Student pace: **self paced**  
+Scheduled project review date/time:  **D, Jun ?, 2020 Time: TBD (EDT)**  
+Instructor name: **Jeff Herman**  
+Deliverables:
+1. Jupyter Notebook:https://github.com/cpedrasa/dsc-mod-5-project-online-ds-sp-000/blob/master/mod5_readmissions_data_pre_processing.ipnyb
+2. Blog Post: https://cpedrasa.github.io/predicting_30-day_hospital_readmisssions
+3. Executive Summary:https://github.com/cpedrasa/dsc-mod-4-project-online-ds-sp-000
+https://github.com/cpedrasa/dsc-mod-5-project-online-ds-sp-000/blob/master/predicting_hospital_readmissions.pdf
 
 
 ## Introduction
 
-In this lesson, we'll review all the guidelines and specifications for the final project for Module 5.
+For the final project for Module 5, we have chosen a binary classification project on predicting 30-day Readmisssion Risk of patients with Diabetes. 
 
 
 ## Objectives
 
-* Understand all required aspects of the Final Project for Module 5
-* Understand all required deliverables
-* Understand what constitutes a successful project
+Hospital readmissions are associated with unfavorable patient outcomes and high financial costs.  
 
-## Final Project Summary
+* The Medicare Payment Advisory Commission (MedPAC) reported that in 2005, 17.6% of hospital admissions resulted in readmissions within 30 days of discharge, 11.3% within 15 days, and 6.2% within 7 days. (https://www.ncsl.org/documents/health/medicare_hospital_readmissions_and_ppaca.pdf)
 
-Congratulations! You've made it through another _intense_ module, and now you're ready to show off your newfound Machine Learning skills!
+* Diabetes is one of the most frequently treated condition in US Hospitals with 20.3% readmission rate.
+(https://www.hcup-us.ahrq.gov/reports/statbriefs/sb153.pdf)
 
-![awesome](https://raw.githubusercontent.com/learn-co-curriculum/dsc-mod-5-project/master/smart.gif)
+* Healthcare Regulatory Agencies are focused on 30-day readmission rates as a way to improve quality. The Centers for Medicare and Medicaid Services (CMS) have labeled 30-day readmission rates as a measure of healthcare quality and emphasize its reduction as a strategy to reduce healthcare costs while also maintaining quality.  Some of these mandatory and/or voluntary programs are as follows:
 
-All that remains for Module 5 is to complete the final project!
+    * Hospital Readmissions Reduction Program (HRRP) is a Medicare value-based purchasing program that reduces payments to hospitals with excess readmissions. The Affordable Care Act established the Hospital Readmissions Reduction Program to improve the quality of care while reducing costs. The program incentivizes hospitals to improve communication and care coordination efforts, and to better engage patients and caregivers, with respect to post-discharge planning. 
+    * Bundled Payments for Care Improvement Advanced (BPCIA). An alternative payment model to incentivize financial accountability, care redesign, data analysis and feedback, provider engagement, and patient engagement with bundled payments, care redesign activities, and accountability for performance on quality measures. This program links reimbursement or payment to the quality of care provided during a specific episode period.
+    * Comprehensive Care for Joint Replacement (CJR) model is an episode payment model that uses bundled payments for clinical episodes focused on lower extremity joint replacements
+    * Medicare Shared Savings Program (MSSP) is a voluntary program that encourages groups of doctors, hospitals, and other health care providers to come together as an Accountable Care Organization (ACO) to give coordinated, high quality care to their Medicare patients. This program showed greater reductions in readmission rates.  
+    * Delivery System Reform Incentive Payment (DSRIP) Program is the main mechanism by which New York State will implement the Medicaid Redesign Team (MRT) Waiver Amendment. DSRIP´s purpose is to restructure the health care delivery system by reinvesting in the Medicaid program, with the primary goal of reducing avoidable hospital use by 25% over 5 years. Up to $6.42 billion dollars are allocated to this program with payouts based upon achieving predefined results in system transformation, clinical management and population health.
+
+A successful predictive model will help the Healthcare Organization:  
+
+* Pinpoint patients with high readmission risk to reduce the occurrences of preventable hospital readmissions and avoidable admissions.  
+* Out-predict common approaches to readmission risk stratification by rendering more precise and complete views into patient predispositions by using patient characteristics and other comorbidity index computations in enabling the patient level predictions  
+* Improve resource utilization and increase operational efficiency  
+* Improve hospital rating based on lower readmission rate and increased patient satisfaction  
+* A positive financial return is expected from the readmission and avoidable admission reduction rate.  Revenue generation by decreasing the hospital’s excess readmission ratio that reduces payments for hospitals whose 30-day readmission rates are high relative to other facilities  
+
+
+ <center><img src="CareTransitions.png" alt="drawing" width="800"/></center>
 
 ## The Project
 
-For this project, you're going to select a dataset of your choosing and create a classification model. You'll start by identifying a problem you can solve with classification, and then identify a dataset. You'll then use everything you've learned about Data Science and Machine Learning thus far to source a dataset, preprocess and explore it, and then build and interpret a classification model that answers your chosen question. 
+   ### Data Science Workflow 
+   
+Understanding the typical work flow on how the data science process works is important in business understanding and problem solving. Using the OSEMN Framework the student will go through the different steps of the framework in an iterative and non-linear process. 
+
+ + **O.** Obtain the data - Requirements and information gathering on the problem.
+ + **S.** Scrubbing - Pre-processing our data (removing nulls, outliers, normalization, feature selection)
+ + **E.** Explore-Understand the cohort characteristics and impactful predictors
+ + **M.** Modeling the data - Build and tune the model
+ + **N.** iNterpret the Data and communicate results to stakeholders
+
+In this Module 5 Project, the student will build and test different binary classifier algorithms to predict 30-day hospital readmissions of patients with diabetes, based on the electronic medical records. The models will be tuned to improve accuracies and the model with the best score will be selected to make accurate predictions of data.  
+Part I of the project includes the Introduction, data load, data scrubbing thru completion of pre-processing of the final dataframe.
+Part II of the project includes the Data Modeling, tuning, evaluation, performance metrics and finalization/saving of the model. for later prediction use.
 
 
-### Selecting a Data Set
-
-We encourage you to be very thoughtful when identifying your problem and selecting your data set--an overscoped project goal or a poor data set can quickly bring an otherwise promising project to a grinding halt. 
-
-To help you select an appropriate data set for this project, we've set some guidelines:
-
-1. Your dataset should work for classification. The classification task can be either binary or multiclass, as long as it's a classification model.   
-
-2. Your dataset needs to be of sufficient complexity. Try to avoid picking an overly simple dataset. Try to avoid extremely small datasets, as well as the most common datasets like titanic, iris, MNIST, etc. We want to see all the steps of the Data Science Process in this project--it's okay if the dataset is mostly clean, but we expect to see some preprocessing and exploration. See the following section, **_Data Set Constraints_**, for more information on this.   
-
-3. On the other end of the spectrum, don't pick a problem that's too complex, either. Stick to problems that you have a clear idea of how you can use machine learning to solve it. For now, we recommend you stay away from overly complex problems in the domains of Natural Language Processing or Computer Vision--although those domains make use of Supervised Learning, they come with a lot of other special requirements and techniques that you don't know yet (but you'll learn soon!). If you're chosen problem feels like you've overscoped, then it probably is. If you aren't sure if your problem scope is appropriate, double check with your instructor!  
-
-4. **_Serious Bonus Points_** if some or all of the data is data you have to source yourself through web scraping or interacting with a 3rd party API! Having projects that show off your ability to source data effectively make you look that much more impressive when showing your work off to potential employers!
-
-### Data Set Constraints
-
-When selecting a data set, be sure to take into consideration the following constraints:
-
-1. Your data set can't be one we've already worked with in any labs. 
-2. Your data set should contain a minimum of 1000 rows.    
-3. Your data set should contain a minimum of 10 predictor columns, before any one-hot encoding is performed.   
-4. Your instructor must provide final approval on your data set. 
-
-### Problem First, or Data First?
-
-There are two ways that you can about getting started: **_Problem-First_** or **_Data-First_**. 
-
-**_Problem-First_**: Start with a problem that you want to solve with classification, and then try to find the data you need to solve it.  If you can't find any data to solve your problem, then you should pick another problem. 
-
-**_Data-First_**: Take a look at some of the most popular internet repositories of cool data sets we've listed below. If you find a data set that's particularly interesting for you, then it's totally okay to build your problem around that data set. 
-
-There are plenty of amazing places that you can get your data from. We recommend you start looking at data sets in some of these resources first:
-
-* [UCI Machine Learning Datasets Repository](https://archive.ics.uci.edu/ml/datasets.html)
-* [Kaggle Datasets](https://www.kaggle.com/datasets)
-* [Awesome Datasets Repo on Github](https://github.com/awesomedata/awesome-public-datasets)
-* [New York City Open Data Portal](https://opendata.cityofnewyork.us/)
-* [Inside AirBNB ](http://insideairbnb.com/)
+ In this project we would like to find the answers to the following questions:
+ + Who among the hospitalized Diabetic patients are at risk for 30-day hospital readmissions?
+ + How can we risk stratify and rank patient/encounters with the highest probability of getting readmitted within 30 days? 
+ + Which features are important predictors of 30-day readmission in patients with Diabetes?
+ + Are HbA1c result, changes in treatment, and glycemic factors significant contributors to readmissions? 
 
 
-## The Deliverables
+### Hospital Readmissions Diabetes Data Set 
+[UCI Machine Learning Datasets Repository](https://archive.ics.uci.edu/ml/datasets/diabetes+130-us+hospitals+for+years+1999-2008)
 
-Your completed should contain the following deliverables:
+The dataset represents 10 years (1999-2008) of clinical care at 130 US hospitals and integrated delivery networks. It includes over 50 features representing patient and hospital outcomes. Information was extracted from the database for encounters that satisfied the following criteria.
 
-1. A **_Jupyter Notebook_** containing any code you've written for this project.  
+1. It is an inpatient encounter (a hospital admission)   
+2. It is a diabetic encounter, that is, one during which any kind of diabetes was entered to the system as a diagnosis.
+3. The length of stay was at least 1 day and at most 14 days.
+4. Laboratory tests were performed during the encounter.
+5. Medications were administered during the encounter.
 
-2. A **_Blog Post_** explaining your problem/dataset, along with your process, methodology, and findings.  
 
-3. An **_"Executive Summary" PowerPoint Presentation_** that gives a brief overview of your problem/dataset, and each step of the OSEMN process. 
+#### DATA-SPECIFIC INFORMATION FOR: [diabetic_data.csv]
+
+1. Number of variables: 50
+2. Number of instances/rows: 101766
+3. Variable List: 
+
+**Target Variable:**
+
+|Attribute|Description|
+|:---|:---|
+|**Readmitted**|Days to inpatient readmission. Values: “<30” if the patient was readmitted in less than 30 days, “>30” if the patient was readmitted in more than 30 days, and “No” for no record of readmissionFeatures:|
 
 
 
-### Jupyter Notebook Must-Haves
+**Predictors:**
 
-For this project, your jupyter notebook should meet the following specifications:
+|Attribute|Description|
+|:---|:---|
+|**Encounter ID**| Unique identifier of an encounter|
+|**Patient number**| Unique identifier of a patient|
+|**Race Values**|  Caucasian, Asian, African American, Hispanic, and other|
+|**Gender**|  male, female, and unknown/invalid|
+|**Age**| Grouped in 10-year intervals: 0, 10), 10, 20), …, 90, 100)|
+|**Weight**| Weight in pounds|
+|**Admission type**| Integer identifier corresponding to 9 distinct values, for example, emergency, urgent, elective, newborn, and not available|
+|**Discharge disposition**|  Integer identifier corresponding to 29 distinct values, for example, discharged to home, expired, and not available|
+|**Admission source**|  Integer identifier corresponding to 21 distinct values, for example, physician referral, emergency room, and transfer from a hospital|
+|**Time in hospital**| Integer number of days between admission and discharge|
+|**Payer code**| Integer identifier corresponding to 23 distinct values, for example, Blue Cross/Blue Shield, Medicare, and self-pay Medical|
+|**Medical specialty**| Integer identifier of a specialty of the admitting physician, corresponding to 84 distinct values, for example, cardiology, internal medicine, family/general practice, and surgeon|
+|**Number of lab procedures**| Number of lab tests performed during the encounter|
+|**Number of procedures**| Numeric Number of procedures (other than lab tests) performed during the encounter|
+|**Number of medications**| Number of distinct generic names administered during the encounter|
+|**Number of outpatient visits**| Number of outpatient visits of the patient in the year preceding the encounter|
+|**Number of emergency visits**| Number of emergency visits of the patient in the year preceding the encounter|
+|**Number of inpatient visits**| Number of inpatient visits of the patient in the year preceding the encounter|
+|**Diagnosis 1**| The primary diagnosis (coded as first three digits of ICD9); 848 distinct values|
+|**Diagnosis 2**| Secondary diagnosis (coded as first three digits of ICD9); 923 distinct values|
+|**Diagnosis 3**| Additional secondary diagnosis (coded as first three digits of ICD9); 954 distinct values|
+|**Number of diagnoses**| Number of diagnoses entered to the system 0%|
+|**Glucose serum test result**| Indicates the range of the result or if the test was not taken. Values: “>200,” “>300,” “normal,” and “none” if not measured|
+|**A1c test result**| Indicates the range of the result or if the test was not taken. Values: “>8” if the result was greater than 8%, “>7” if the result was greater than 7% but less than 8%, “normal” if the result was less than 7%, and “none” if not measured.|
+|**Change of medications**|  Indicates if there was a change in diabetic medications (either dosage or generic name). + + Values: “change” and “no change”|
+|**Diabetes medications**| Indicates if there was any diabetic medication prescribed. Values: “yes” and “no”|
+|**24 features for medications**|  For the generic names: metformin, repaglinide, nateglinide, chlorpropamide, glimepiride, acetohexamide, glipizide, glyburide, tolbutamide, pioglitazone, rosiglitazone, acarbose, miglitol, troglitazone, tolazamide, examide, sitagliptin, insulin, glyburide-metformin, glipizide-metformin, glimepiride- pioglitazone, metformin-rosiglitazone, and metformin- pioglitazone, the feature indicates whether the drug was prescribed or there was a change in the dosage. Values: “up” if the dosage was increased during the encounter, “down” if the dosage was decreased, “steady” if the dosage did not change, and “no” if the drug was not prescribed|
 
-**_Organization/Code Cleanliness_**
 
-* The notebook should be well organized, easy to follow, and code is commented where appropriate.  
-    * Level Up: The notebook contains well-formatted, professional looking markdown cells explaining any substantial code. All functions have docstrings that act as professional-quality documentation.  
-* The notebook is written to technical audiences with a way to both understand your approach and reproduce your results. The target audience for this deliverable is other data scientists looking to validate your findings.  
-
-**_Process, Methodology, and Findings_**
-
-* Your notebook should contain a clear record of your process and methodology for exploring and preprocessing your data, building and tuning a model, and interpreting your results. 
-* We recommend you use the OSEMN process to help organize your thoughts and stay on track. 
-
-
-### Blog Post Must-Haves
-
-Your blog post should clearly explain your process and results, including:
-*  An explanation of the problem you're trying to solve and the dataset you choose for it
-* Well documented examples of code and visualizations (when appropriate)
+4. **Missing data codes:** 
+|Attributes with Null values|Description|
+|:---|:---|
+|race | 2273 |
+|weight| 98569|
+|payer_code| 40256 |
+|medical_specialty| 49949 |
+|diag_1 | 21|
+|diag_1| 358|
+|diag_3 | 1423|
 
 
-**_NOTE:_**  This blog post is your way of showcasing the work you've done on this project--chances are it will soon be read by a recruiter or hiring manager! Take the time to make sure that you craft your story well, and clearly explain your process and findings in a way that clearly shows both your technical expertise **_and_** your ability to communicate your results!
+
+
+### Prerequisites
+
+You may need to install some software and packages.
+
+
+1. Install Anaconda (https://docs.anaconda.com/anaconda/install/)
+
+2. Install Scikit-learn (https://anaconda.org/anaconda/scikit-learn)
+```console
+conda install -c anaconda scikit-learn
+```
+
+3. Install Imbalanced-Learn Library (https://anaconda.org/conda-forge/imbalanced-learn)
+```console
+conda install -c conda-forge imbalanced-learn
+```
+
+4. Install XGBoost Library (https://anaconda.org/conda-forge/xgboost)
+```console
+conda install -c conda-forge xgboost
+```
+
+     
+
+## Acknowledgments
+
+* Dataset: (https://archive.ics.uci.edu/ml/datasets/diabetes+130-us+hospitals+for+years+1999-2008)
+* Beata Strack, Jonathan P. DeShazo, Chris Gennings, Juan L. Olmo, Sebastian Ventura, Krzysztof J. Cios, and John N. Clore, “Impact of HbA1c Measurement on Hospital Readmission Rates: Analysis of 70,000 Clinical Database Patient Records,” BioMed Research International, vol. 2014, Article ID 781670, 11 pages, 2014.(https://www.hindawi.com/journals/bmri/2014/781670/)
+* The inspiration for class imbalance techniques come from Jason Brownlee PhD website and book  
+    - Imbalance Classification Techniques/Codes -  (https://machinelearningmastery.com/what-is-imbalanced-classification/)
+    - Precision Recall Curves for imbalanced classification - https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/
+
+
+
+
+
+
 
